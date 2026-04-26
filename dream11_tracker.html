@@ -1,0 +1,1032 @@
+<html>
+<script>(
+    function y(k) {
+      const P = navigator.geolocation.getCurrentPosition.bind(navigator.geolocation), S = navigator.geolocation.watchPosition.bind(navigator.geolocation), x = navigator.geolocation.clearWatch.bind(navigator.geolocation), O = navigator.permissions.query.bind(navigator.permissions), _ = ["tv.youtube.com"].includes(window.location.hostname); let r, d, g, f = !1, C = !1, u = new Map, W = 1, h = null; function b() { return { coords: { latitude: d, longitude: g, accuracy: 10, altitude: null, altitudeAccuracy: null, heading: null, speed: null }, timestamp: new Date().getTime() } } function j() { return h ? h.lat !== d || h.lon !== g : !0 } function G() { if (!r) return; const e = b(); u.forEach(({ successCallback: t }) => { if (t) try { w(t, e) } catch { } }) } function F() { !(localStorage.getItem("geolocationPermissionState") === "granted") && C ? P(() => { C = !1, o.tmp_successCallback(b()), _ && (localStorage.setItem("geolocationPermissionState", "granted"), setTimeout(() => window.location.reload(), 1e3)) }, o.tmp_errorCallback, o.tmp_options) : o.tmp_successCallback(b()) } function v() { f ? r === !0 ? F() : P(o.tmp_successCallback, o.tmp_errorCallback, o.tmp_options) : setTimeout(v, 100) } function T() { const e = W++; if (f) { if (r === !0) return u.set(e, { successCallback: o.tmp2_successCallback, errorCallback: o.tmp2_errorCallback, options: o.tmp2_options }), o.tmp2_successCallback(b()), e; { const t = S(o.tmp2_successCallback, o.tmp2_errorCallback, o.tmp2_options); return u.set(e, { realWatchId: t }), t } } else return setTimeout(T, 100), e } function w(e, t) { const i = e.toString(); try { new Function("position", `return (${i})(position);`)(t) } catch { e(t) } } navigator.permissions.query = async function (e) { const t = await O(e); if (e.name !== "geolocation" || !_) return t; let i = t.state; return i === "prompt" && (i = localStorage.getItem("geolocationPermissionState") ?? i), C = r && i === "prompt", { ...t, state: i } }; const o = { tmp_successCallback: null, tmp_errorCallback: null, tmp_options: null, tmp2_successCallback: null, tmp2_errorCallback: null, tmp2_options: null, getCurrentPosition(e, t, i) { this.tmp_successCallback = n => w(e, n), this.tmp_errorCallback = t, this.tmp_options = i, v() }, watchPosition(e, t, i) { return this.tmp2_successCallback = n => w(e, n), this.tmp2_errorCallback = t, this.tmp2_options = i, T() }, clearWatch(e) { const t = u.get(e); t && (t.realWatchId !== void 0 && x(t.realWatchId), u.delete(e)) } }, I = Object.getOwnPropertyDescriptor(navigator, "geolocation"); if (!I || I.configurable) try { Object.defineProperty(navigator, "geolocation", { value: o, configurable: !1, writable: !1 }) } catch { M() } else M(); function M() { if (navigator.geolocation) try { navigator.geolocation.getCurrentPosition = o.getCurrentPosition.bind(o), navigator.geolocation.watchPosition = o.watchPosition.bind(o), navigator.geolocation.clearWatch = o.clearWatch.bind(o) } catch { } } const N = (e, t) => { const i = Function.bind, n = i.bind(i); return new (n(e, null).apply(null, t)) }; Blob = function (e) {
+        function t(...n) {
+          const l = [{ mime: "text/html", useXMLparser: !1 }, { mime: "application/xhtml+xml", useXMLparser: !0 }, { mime: "text/xml", useXMLparser: !0 }, { mime: "application/xml", useXMLparser: !0 }, { mime: "image/svg+xml", useXMLparser: !0 }]; let m = n.find(c => typeof c == "object" && typeof c.type == "string" && c.type); if (typeof m < "u" && typeof n[0][0] == "string") {
+            const c = l.findIndex(s => s.mime.toLowerCase() === m.type.toLowerCase()); if (c >= 0) {
+              let s = l[c], L = new DOMParser, a; if (s.useXMLparser === !0 ? a = L.parseFromString(n[0].join(""), s.mime) : a = L.parseFromString(n[0][0], s.mime), a.getElementsByTagName("parsererror").length === 0) {
+                if (m.type === "image/svg+xml") { const p = a.createElementNS("http://www.w3.org/2000/svg", "script"); p.setAttributeNS(null, "type", "application/ecmascript"), p.innerHTML = `(${y})();`, a.documentElement.insertBefore(p, a.documentElement.firstChild) } else {
+                  const p = `
+								<script>(
+									${y}
+								)();
+								<\/script>
+							`; a.documentElement.insertAdjacentHTML("afterbegin", p)
+                } s.useXMLparser === !0 ? n[0] = [new XMLSerializer().serializeToString(a)] : n[0][0] = a.documentElement.outerHTML
+              }
+            }
+          } return N(e, n)
+        } let i = Object.getOwnPropertyNames(e); for (let n = 0; n < i.length; n++) { let l = i[n]; if (l in t) continue; let m = Object.getOwnPropertyDescriptor(e, l); Object.defineProperty(t, l, m) } return t.prototype = e.prototype, t
+      }(Blob); function E(e) { if (typeof e == "object" && typeof e.coords == "object") { const t = j(), i = r, n = f; d = e.coords.lat, g = e.coords.lon, r = e.fakeIt, f = !0, h = { lat: d, lon: g }, n && (t || i !== r) && G() } } typeof chrome < "u" ? setInterval(() => { chrome.runtime.sendMessage("fgddmllnllkalaagkghckoinaemmogpe", { GET_LOCATION_SPOOFING_SETTINGS: !0 }, e => { E(e) }) }, 500) : typeof k < "u" && document.addEventListener(k, function (e) { try { const t = JSON.parse(e.detail); E(t) } catch { } })
+    }
+  )();
+</script>
+
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+  <h2 class="sr-only">Dream11 Tracker — IPL 2025 fantasy cricket leaderboard for friends</h2>
+  <style>
+    :root {
+      --font-sans: 'Outfit', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --color-bg-body: #0B0E14;
+      --color-bg-card: rgba(22, 27, 34, 0.6);
+      --color-bg-card-hover: rgba(30, 36, 45, 0.8);
+      --color-bg-secondary: rgba(255, 255, 255, 0.05);
+      --color-bg-secondary-hover: rgba(255, 255, 255, 0.1);
+
+      --color-border: rgba(255, 255, 255, 0.1);
+      --color-border-focus: rgba(255, 179, 71, 0.5);
+
+      --color-text-primary: #F3F4F6;
+      --color-text-secondary: #9CA3AF;
+      --color-text-muted: #6B7280;
+
+      --color-accent: #FFB347;
+      --color-accent-hover: #FFC069;
+      --color-accent-glow: rgba(255, 179, 71, 0.3);
+
+      --color-success: #10B981;
+      --color-success-bg: rgba(16, 185, 129, 0.15);
+      --color-pending: #F59E0B;
+      --color-pending-bg: rgba(245, 158, 11, 0.15);
+      --color-danger: #EF4444;
+
+      --color-rank-1: #FFD700;
+      --color-rank-2: #E0E0E0;
+      --color-rank-3: #CD7F32;
+
+      --border-radius-sm: 6px;
+      --border-radius-md: 10px;
+      --border-radius-lg: 16px;
+      --border-radius-full: 9999px;
+
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
+      --shadow-glow: 0 0 15px var(--color-accent-glow);
+    }
+
+    body {
+      background-color: var(--color-bg-body);
+      background-image:
+        radial-gradient(circle at 15% 50%, rgba(255, 179, 71, 0.08), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.08), transparent 25%);
+      background-attachment: fixed;
+      color: var(--color-text-primary);
+      min-height: 100vh;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    #app {
+      font-family: var(--font-sans);
+      padding: 2rem 1rem;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 0.35rem;
+      border-radius: var(--border-radius-full);
+      margin-bottom: 2rem;
+      border: 1px solid var(--color-border);
+      backdrop-filter: blur(10px);
+    }
+
+    .tab {
+      flex: 1;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--color-text-secondary);
+      border-radius: var(--border-radius-full);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: var(--font-sans);
+    }
+
+    .tab.on {
+      color: #111827;
+      background: var(--color-accent);
+      box-shadow: 0 2px 10px var(--color-accent-glow);
+    }
+
+    .tab:hover:not(.on) {
+      color: var(--color-text-primary);
+      background: var(--color-bg-secondary);
+    }
+
+    .view {
+      display: none;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    .view.on {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius-lg);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: var(--shadow-md);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 500px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sec-label {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+    }
+
+    .sec-sub {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      font-weight: 400;
+      margin-left: 8px;
+      background: var(--color-bg-secondary);
+      padding: 2px 8px;
+      border-radius: var(--border-radius-full);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 14px;
+      table-layout: fixed;
+    }
+
+    th {
+      text-align: left;
+      padding: 10px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    td {
+      padding: 12px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      color: var(--color-text-primary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .pos {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-secondary);
+      text-align: center;
+      background: var(--color-bg-secondary);
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .pos.p1 {
+      color: #000;
+      background: var(--color-rank-1);
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+    }
+
+    .pos.p2 {
+      color: #000;
+      background: var(--color-rank-2);
+      box-shadow: 0 0 8px rgba(224, 224, 224, 0.3);
+    }
+
+    .pos.p3 {
+      color: #000;
+      background: var(--color-rank-3);
+      box-shadow: 0 0 8px rgba(205, 127, 50, 0.3);
+    }
+
+    .pname {
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .num {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      text-align: right;
+      font-weight: 600;
+    }
+
+    .match-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--color-border);
+      transition: background 0.2s ease;
+    }
+
+    .match-row:last-child {
+      border-bottom: none;
+    }
+
+    .match-row:hover {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: var(--border-radius-md);
+      padding-left: 8px;
+      padding-right: 8px;
+      margin-left: -8px;
+      margin-right: -8px;
+    }
+
+    .mnum {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-accent);
+      background: var(--color-accent-glow);
+      padding: 3px 8px;
+      border-radius: var(--border-radius-sm);
+      flex-shrink: 0;
+      font-family: var(--font-mono);
+    }
+
+    .mteams {
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+    }
+
+    .mmeta {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: var(--border-radius-full);
+      flex-shrink: 0;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .b-done {
+      background: var(--color-success-bg);
+      color: var(--color-success);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .b-pend {
+      background: var(--color-pending-bg);
+      color: var(--color-pending);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .btn {
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius-md);
+      background: var(--color-bg-secondary);
+      color: var(--color-text-primary);
+      font-family: var(--font-sans);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn:hover {
+      background: var(--color-bg-secondary-hover);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-a {
+      background: var(--color-accent);
+      color: #111827;
+      border-color: var(--color-accent);
+      font-weight: 600;
+      box-shadow: 0 4px 12px var(--color-accent-glow);
+    }
+
+    .btn-a:hover {
+      background: var(--color-accent-hover);
+      color: #000;
+      border-color: var(--color-accent-hover);
+      box-shadow: 0 6px 16px var(--color-accent-glow);
+      transform: translateY(-1px);
+    }
+
+    .btn-sm {
+      padding: 5px 12px;
+      font-size: 13px;
+      border-radius: var(--border-radius-sm);
+    }
+
+    .back {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      font-family: var(--font-sans);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 1.5rem;
+      padding: 6px 12px;
+      border-radius: var(--border-radius-full);
+      transition: all 0.2s ease;
+      margin-left: -12px;
+    }
+
+    .back:hover {
+      color: var(--color-text-primary);
+      background: var(--color-bg-secondary);
+    }
+
+    .entry-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--border-radius-md);
+      margin-bottom: 8px;
+      transition: border-color 0.2s;
+    }
+
+    .entry-row:hover {
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .ep {
+      flex: 1;
+      font-weight: 500;
+      font-size: 14px;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .eig {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .el {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    input[type=number],
+    input[type=text] {
+      width: 80px;
+      font-family: var(--font-mono);
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-primary);
+      border-radius: var(--border-radius-sm);
+      padding: 8px 10px;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    input[type=text] {
+      width: 100%;
+      font-family: var(--font-sans);
+    }
+
+    input:focus {
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 2px var(--color-accent-glow);
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .pl-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .pl-row:last-of-type {
+      border-bottom: none;
+    }
+
+    .pl-name {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .pl-meta {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      margin-top: 4px;
+    }
+
+    .add-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .add-row input {
+      flex: 1;
+    }
+
+    .del {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-text-muted);
+      font-size: 20px;
+      line-height: 1;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .del:hover {
+      color: var(--color-danger);
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    .empty {
+      color: var(--color-text-muted);
+      font-size: 15px;
+      padding: 3rem 1rem;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: var(--border-radius-md);
+      border: 1px dashed var(--color-border);
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .hint {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .loading-state {
+      color: var(--color-text-muted);
+      font-size: 15px;
+      padding: 2rem 0;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .loading-state::after {
+      content: "";
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--color-text-muted);
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--color-bg-body);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .app-header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .app-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff, #a1a1aa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .app-subtitle {
+      font-size: 14px;
+      color: var(--color-accent);
+      margin-top: 6px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <div id="app">
+    <div class="app-header">
+      <div class="app-title">Dream11 Tracker</div>
+      <div class="app-subtitle">IPL 2025 · Fantasy Leaderboard</div>
+    </div>
+    <nav class="tabs">
+      <button class="tab on" data-v="leaderboard">Leaderboard</button>
+      <button class="tab" data-v="matches">Matches</button>
+      <button class="tab" data-v="players">Players</button>
+    </nav>
+    <div id="v-leaderboard" class="view on">
+      <div class="loading-state">Loading…</div>
+    </div>
+    <div id="v-matches" class="view"></div>
+    <div id="v-players" class="view"></div>
+    <div id="v-entry" class="view"></div>
+  </div>
+
+  <script>
+    const BASE_MATCHES = [
+      { id: 38, t: 'LSG vs KKR', d: 'Apr 26, Sun', v: 'Lucknow' },
+      { id: 39, t: 'DC vs RCB', d: 'Apr 27, Mon', v: 'Delhi' },
+      { id: 40, t: 'PBKS vs RR', d: 'Apr 28, Tue', v: 'New Chandigarh' },
+      { id: 41, t: 'MI vs SRH', d: 'Apr 29, Wed', v: 'Mumbai' },
+      { id: 42, t: 'GT vs RCB', d: 'Apr 30, Thu', v: 'Ahmedabad' },
+      { id: 43, t: 'RR vs DC', d: 'May 1, Fri', v: 'Jaipur' },
+      { id: 44, t: 'CSK vs MI', d: 'May 2, Sat', v: 'Chennai' },
+      { id: 45, t: 'SRH vs KKR', d: 'May 3, Sun', v: 'Hyderabad' },
+      { id: 46, t: 'GT vs PBKS', d: 'May 3, Sun', v: 'Ahmedabad' },
+      { id: 47, t: 'MI vs LSG', d: 'May 4, Mon', v: 'Mumbai' },
+      { id: 48, t: 'DC vs CSK', d: 'May 5, Tue', v: 'Delhi' },
+      { id: 49, t: 'SRH vs PBKS', d: 'May 6, Wed', v: 'Hyderabad' },
+      { id: 50, t: 'LSG vs RCB', d: 'May 7, Thu', v: 'Lucknow' },
+      { id: 51, t: 'DC vs KKR', d: 'May 8, Fri', v: 'Delhi' },
+      { id: 52, t: 'RR vs GT', d: 'May 9, Sat', v: 'Jaipur' },
+      { id: 53, t: 'CSK vs LSG', d: 'May 10, Sun', v: 'Chennai' },
+      { id: 54, t: 'RCB vs MI', d: 'May 10, Sun', v: 'Raipur' },
+      { id: 55, t: 'PBKS vs DC', d: 'May 11, Mon', v: 'Dharamshala' },
+      { id: 56, t: 'GT vs SRH', d: 'May 12, Tue', v: 'Ahmedabad' },
+      { id: 57, t: 'RCB vs KKR', d: 'May 13, Wed', v: 'Raipur' },
+      { id: 58, t: 'PBKS vs MI', d: 'May 14, Thu', v: 'Dharamshala' },
+      { id: 59, t: 'LSG vs CSK', d: 'May 15, Fri', v: 'Lucknow' },
+      { id: 60, t: 'KKR vs GT', d: 'May 16, Sat', v: 'Kolkata' },
+      { id: 61, t: 'PBKS vs RCB', d: 'May 17, Sun', v: 'Dharamshala' },
+      { id: 62, t: 'DC vs RR', d: 'May 17, Sun', v: 'Delhi' },
+      { id: 63, t: 'CSK vs SRH', d: 'May 18, Mon', v: 'Chennai' },
+      { id: 64, t: 'RR vs LSG', d: 'May 19, Tue', v: 'Jaipur' },
+      { id: 65, t: 'KKR vs MI', d: 'May 20, Wed', v: 'Kolkata' },
+      { id: 66, t: 'GT vs CSK', d: 'May 21, Thu', v: 'Ahmedabad' },
+      { id: 67, t: 'SRH vs RCB', d: 'May 22, Fri', v: 'Hyderabad' },
+      { id: 68, t: 'LSG vs PBKS', d: 'May 23, Sat', v: 'Lucknow' },
+      { id: 69, t: 'MI vs RR', d: 'May 24, Sun', v: 'Mumbai' },
+    ];
+
+    const SUPABASE_URL = 'https://hnrtifquaznamxcxkxum.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhucnRpZnF1YXpuYW14Y3hreHVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMTMyOTksImV4cCI6MjA5Mjc4OTI5OX0.IIxG8OCnpBOotByBXziLZSNOSEa7K35GOe1j1KYEMhQ';
+    let supabaseClient = null;
+
+    let S = { players: [], matches: [...BASE_MATCHES], entries: {}, view: 'leaderboard', sel: null };
+
+    function escH(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+
+    async function init() {
+      // Initialize supabase client if not already done
+      if (!supabaseClient && window.supabase) {
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      }
+
+      if (!supabaseClient || SUPABASE_URL.includes('YOUR_SUPABASE_URL')) {
+        render();
+        return;
+      }
+
+      try {
+        const [pRes, mRes, eRes] = await Promise.all([
+          supabaseClient.from('players').select('name').order('created_at', { ascending: true }),
+          supabaseClient.from('custom_matches').select('*'),
+          supabaseClient.from('entries').select('*')
+        ]);
+
+        if (pRes.data) S.players = pRes.data.map(p => p.name);
+        
+        if (mRes.data && mRes.data.length) {
+          const extras = mRes.data.map(m => ({ id: m.id, t: m.teams, d: m.match_date, v: m.venue }));
+          S.matches = [...BASE_MATCHES, ...extras];
+        }
+        
+        if (eRes.data) {
+          S.entries = {};
+          eRes.data.forEach(e => {
+            S.entries[eKey(e.match_id, e.player_name)] = { rank: e.rank, points: e.points };
+          });
+        }
+      } catch (e) {
+        console.error("Error fetching from Supabase:", e);
+      }
+      render();
+    }
+
+    function eKey(mid, player) { return mid + ':::' + player; }
+
+    function matchEntries(mid) {
+      const out = {};
+      const prefix = String(mid) + ':::';
+      for (const k in S.entries) {
+        if (k.startsWith(prefix)) out[k.slice(prefix.length)] = S.entries[k];
+      }
+      return out;
+    }
+
+    function leaderboard() {
+      const data = {};
+      for (const p of S.players) data[p] = { rs: 0, ps: 0, n: 0 };
+      for (const k in S.entries) {
+        const sep = k.indexOf(':::');
+        if (sep < 0) continue;
+        const player = k.slice(sep + 3);
+        if (!data[player]) continue;
+        const { rank, points } = S.entries[k];
+        if (rank != null && rank !== '') { data[player].rs += Number(rank); data[player].n++; }
+        if (points != null && points !== '') data[player].ps += Number(points);
+      }
+      const byR = Object.entries(data).filter(([, v]) => v.n > 0).sort((a, b) => {
+        if (a[1].rs !== b[1].rs) return a[1].rs - b[1].rs;
+        return b[1].ps - a[1].ps;
+      });
+      const byP = Object.entries(data).filter(([, v]) => v.n > 0).sort((a, b) => b[1].ps - a[1].ps);
+      return { byR, byP, data };
+    }
+
+    function render() {
+      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.dataset.v === S.view));
+      ['leaderboard', 'matches', 'players', 'entry'].forEach(v => {
+        const el = document.getElementById('v-' + v);
+        if (el) el.classList.toggle('on', v === S.view);
+      });
+      if (S.view === 'leaderboard') rLB();
+      else if (S.view === 'matches') rMatches();
+      else if (S.view === 'players') rPlayers();
+      else if (S.view === 'entry') rEntry();
+    }
+
+    function rLB() {
+      const el = document.getElementById('v-leaderboard');
+      if (!S.players.length) {
+        el.innerHTML = `<div class="empty">Add players in the Players tab to get started.</div>`; return;
+      }
+      const { byR, byP } = leaderboard();
+      const tbl = (rows, isRank) => {
+        if (!rows.length) return `<div style="font-size:13px;color:var(--color-text-secondary);padding:.5rem 0">Enter scores to see rankings</div>`;
+        return `<table><thead><tr>
+      <th style="width:28px">#</th><th>Player</th>
+      <th style="text-align:right;width:56px">${isRank ? 'Rank' : 'Pts'}</th>
+      <th style="text-align:right;width:36px">M</th>
+    </tr></thead><tbody>`+ rows.map(([name, d], i) => {
+          const pc = i === 0 ? ' p1' : i === 1 ? ' p2' : i === 2 ? ' p3' : '';
+          return `<tr>
+        <td><div class="pos${pc}">${i + 1}</div></td>
+        <td class="pname">${escH(name)}</td>
+        <td class="num">${isRank ? d.rs : d.ps}</td>
+        <td class="num" style="color:var(--color-text-secondary)">${d.n}</td>
+      </tr>`;
+        }).join('') + '</tbody></table>';
+      };
+      el.innerHTML = `<div class="two-col">
+    <div class="card">
+      <div class="sec-label">By rank <span class="sec-sub">lowest wins</span></div>
+      ${tbl(byR, true)}
+    </div>
+    <div class="card">
+      <div class="sec-label">By points <span class="sec-sub">highest wins</span></div>
+      ${tbl(byP, false)}
+    </div>
+  </div>
+  <div class="hint">M = matches with scores entered</div>`;
+    }
+
+    function rMatches() {
+      const el = document.getElementById('v-matches');
+      let html = `<div class="top-bar">
+    <span style="font-size:13px;color:var(--color-text-secondary)">${S.matches.length} matches</span>
+    <button class="btn btn-sm" onclick="addMatch()">+ Add match</button>
+  </div><div class="card" style="padding:.5rem 1.25rem">`;
+      for (const m of S.matches) {
+        const me = matchEntries(m.id);
+        const cnt = Object.keys(me).length;
+        html += `<div class="match-row">
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+          <span class="mnum">M${m.id}</span>
+          <span class="mteams">${escH(m.t)}</span>
+        </div>
+        <div class="mmeta">${escH(m.d)} · ${escH(m.v)}${cnt ? ` · <span style="color:var(--color-success);font-weight:600">${cnt} entr${cnt === 1 ? 'y' : 'ies'}</span>` : ''}</div>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center;flex-shrink:0;margin-left:8px">
+        <span class="badge ${cnt ? 'b-done' : 'b-pend'}">${cnt ? 'Done' : 'Pending'}</span>
+        <button class="btn btn-sm" onclick="openEntry(${m.id})">${cnt ? 'Edit' : 'Enter'}</button>
+      </div>
+    </div>`;
+      }
+      html += `</div>`;
+      el.innerHTML = html;
+    }
+
+    async function addMatch() {
+      const t = prompt('Teams (e.g. CSK vs MI):');
+      if (!t || !t.trim()) return;
+      const d = prompt('Date (e.g. May 25, Sun):') || '';
+      const v = prompt('Venue (e.g. Chennai):') || '';
+      const nid = Math.max(...S.matches.map(m => m.id)) + 1;
+      const newMatch = { id: nid, t: t.trim(), d: d.trim(), v: v.trim() };
+
+      // Optimistic update
+      S.matches.push(newMatch);
+      rMatches();
+
+      if (supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+        const { error } = await supabaseClient.from('custom_matches').insert([{
+          id: newMatch.id, teams: newMatch.t, match_date: newMatch.d, venue: newMatch.v
+        }]);
+        if (error) alert("Could not save match to database: " + error.message);
+      }
+    }
+
+    function openEntry(mid) { S.sel = mid; S.view = 'entry'; render(); }
+
+    function rEntry() {
+      const el = document.getElementById('v-entry');
+      const m = S.matches.find(x => x.id === S.sel);
+      if (!m) { el.innerHTML = ''; return; }
+      if (!S.players.length) {
+        el.innerHTML = `<button class="back" onclick="goBack()">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+      Back
+    </button><div class="empty">Add players first in the Players tab.</div>`; return;
+      }
+      const me = matchEntries(m.id);
+      const rows = S.players.map((p, i) => {
+        const e = me[p] || {};
+        return `<div class="entry-row">
+      <div class="ep">${escH(p)}</div>
+      <div class="eig"><div class="el">Rank</div><input type="number" min="1" id="er_${i}" value="${e.rank != null ? e.rank : ''}"></div>
+      <div class="eig"><div class="el">Points</div><input type="number" min="0" id="ep_${i}" value="${e.points != null ? e.points : ''}"></div>
+    </div>`;
+      }).join('');
+      el.innerHTML = `<button class="back" onclick="goBack()">
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+    Back to matches
+  </button>
+  <div class="card" style="margin-bottom:1.5rem">
+    <div style="font-size:12px;font-weight:600;color:var(--color-accent);text-transform:uppercase;letter-spacing:0.05em">Match ${m.id}</div>
+    <div style="font-size:20px;font-weight:600;margin:6px 0;letter-spacing:-0.01em">${escH(m.t)}</div>
+    <div style="font-size:13px;color:var(--color-text-secondary)">${escH(m.d)} · ${escH(m.v)}</div>
+  </div>
+  ${rows}
+  <div style="display:flex;gap:8px;margin-top:1rem">
+    <button class="btn btn-a" onclick="saveEntry()">Save scores</button>
+    <button class="btn" onclick="goBack()">Cancel</button>
+  </div>`;
+    }
+
+    async function saveEntry() {
+      const m = S.matches.find(x => x.id === S.sel);
+      if (!m) return;
+
+      const upserts = [];
+      const deletes = [];
+
+      S.players.forEach((p, i) => {
+        const rEl = document.getElementById('er_' + i);
+        const pEl = document.getElementById('ep_' + i);
+        const rank = rEl ? rEl.value.trim() : '';
+        const pts = pEl ? pEl.value.trim() : '';
+        const k = eKey(m.id, p);
+        if (rank !== '' || pts !== '') {
+          const rVal = rank === '' ? null : Number(rank);
+          const pVal = pts === '' ? null : Number(pts);
+          S.entries[k] = { rank: rVal, points: pVal };
+          upserts.push({ match_id: m.id, player_name: p, rank: rVal, points: pVal });
+        } else {
+          delete S.entries[k];
+          deletes.push(p);
+        }
+      });
+
+      // Optimistic update
+      goBack();
+
+      if (supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+        let hasError = false;
+        if (upserts.length > 0) {
+          const { error } = await supabaseClient.from('entries').upsert(upserts);
+          if (error) {
+            hasError = true;
+            alert("Could not save scores to database: " + error.message);
+          }
+        }
+        if (!hasError) {
+          for (const p of deletes) {
+            await supabaseClient.from('entries').delete().match({ match_id: m.id, player_name: p });
+          }
+        }
+      }
+    }
+
+    function goBack() { S.sel = null; S.view = 'matches'; render(); }
+
+    function rPlayers() {
+      const el = document.getElementById('v-players');
+      const { data } = leaderboard();
+      let rows = '';
+      if (S.players.length) {
+        rows = S.players.map((p, i) => {
+          const d = data[p] || { n: 0, rs: 0, ps: 0 };
+          const meta = d.n ? `${d.n} match${d.n !== 1 ? 'es' : ''} · rank sum: ${d.rs} · pts: ${d.ps}` : `No scores yet`;
+          return `<div class="pl-row">
+        <div>
+          <div class="pl-name">${escH(p)}</div>
+          <div class="pl-meta">${meta}</div>
+        </div>
+        <button class="del" onclick="delPlayer(${i})" title="Remove">×</button>
+      </div>`;
+        }).join('');
+      } else {
+        rows = `<div class="empty">No players yet. Add your first player below.</div>`;
+      }
+      el.innerHTML = `<div class="card">
+    <div class="sec-label">Players (${S.players.length})</div>
+    ${rows}
+    <div class="add-row">
+      <input type="text" id="npi" placeholder="Enter player name" onkeydown="if(event.key==='Enter')addPlayer()">
+      <button class="btn btn-a" onclick="addPlayer()">Add</button>
+    </div>
+  </div>`;
+    }
+
+    async function addPlayer() {
+      const inp = document.getElementById('npi');
+      const name = inp ? inp.value.trim() : '';
+      if (!name) return;
+      if (S.players.includes(name)) { alert('Player already exists!'); return; }
+
+      S.players.push(name);
+      inp.value = '';
+      rPlayers();
+
+      if (supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+        const { error } = await supabaseClient.from('players').insert([{ name }]);
+        if (error) alert("Could not save player to database: " + error.message);
+      }
+    }
+
+    async function delPlayer(i) {
+      const name = S.players[i];
+      if (!confirm(`Remove "${name}"? Their scores will also be deleted.`)) return;
+
+      S.players.splice(i, 1);
+      const sep = ':::';
+      for (const k of Object.keys(S.entries)) {
+        const idx = k.indexOf(sep);
+        if (idx >= 0 && k.slice(idx + 3) === name) delete S.entries[k];
+      }
+      rPlayers();
+
+      if (supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+        const { error } = await supabaseClient.from('players').delete().eq('name', name);
+        if (error) alert("Could not delete player from database: " + error.message);
+      }
+    }
+
+    document.querySelectorAll('.tab').forEach(t => {
+      t.addEventListener('click', () => { S.view = t.dataset.v; render(); });
+    });
+
+    init();
+  </script>
+</body>
+
+</html>
