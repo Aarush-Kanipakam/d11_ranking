@@ -35,7 +35,7 @@
 </head>
 
 <body>
-  <h2 class="sr-only">Dream11 Tracker — IPL 2025 fantasy cricket leaderboard for friends</h2>
+  <h2 class="sr-only">Dream11 Tracker — IPL 2026 fantasy cricket leaderboard for friends</h2>
   <style>
     :root {
       --font-sans: 'Outfit', system-ui, sans-serif;
@@ -654,37 +654,107 @@
 
     /* Mobile Responsiveness */
     @media (max-width: 600px) {
-      #app { padding: 1rem 0.5rem; }
-      .app-title { font-size: 24px; }
-      .card { padding: 1rem; border-radius: 12px; }
-      .tab { padding: 8px 10px; font-size: 13px; }
-      .tabs { gap: 0.25rem; padding: 0.25rem; margin-bottom: 1.5rem; }
-      
-      th { padding: 8px 4px; font-size: 10px; }
-      td { padding: 10px 4px; }
-      .pname { font-size: 13px; }
-      .num { font-size: 13px; }
-      
-      .match-row { padding: 12px 0; gap: 8px; align-items: flex-start; }
-      .match-row > div:last-child { flex-direction: column; align-items: flex-end; gap: 6px; }
-      .mteams { font-size: 14px; }
-      
-      .entry-row { padding: 12px; gap: 10px; flex-wrap: wrap; }
-      .ep { flex-basis: 100%; font-size: 15px; margin-bottom: 2px; }
-      .eig { flex: 1; }
-      input[type=number] { width: 100%; padding: 10px; }
-      input[type=text] { padding: 10px; }
-      
-      .add-row { flex-wrap: wrap; }
-      .add-row .btn { width: 100%; padding: 12px; }
-      .btn { padding: 10px 16px; } 
+      #app {
+        padding: 1rem 0.5rem;
+      }
+
+      .app-title {
+        font-size: 24px;
+      }
+
+      .card {
+        padding: 1rem;
+        border-radius: 12px;
+      }
+
+      .tab {
+        padding: 8px 10px;
+        font-size: 13px;
+      }
+
+      .tabs {
+        gap: 0.25rem;
+        padding: 0.25rem;
+        margin-bottom: 1.5rem;
+      }
+
+      th {
+        padding: 8px 4px;
+        font-size: 10px;
+      }
+
+      td {
+        padding: 10px 4px;
+      }
+
+      .pname {
+        font-size: 13px;
+      }
+
+      .num {
+        font-size: 13px;
+      }
+
+      .match-row {
+        padding: 12px 0;
+        gap: 8px;
+        align-items: flex-start;
+      }
+
+      .match-row>div:last-child {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 6px;
+      }
+
+      .mteams {
+        font-size: 14px;
+      }
+
+      .entry-row {
+        padding: 12px;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .ep {
+        flex-basis: 100%;
+        font-size: 15px;
+        margin-bottom: 2px;
+      }
+
+      .eig {
+        flex: 1;
+      }
+
+      input[type=number] {
+        width: 100%;
+        padding: 10px;
+      }
+
+      input[type=text] {
+        padding: 10px;
+      }
+
+      .add-row {
+        flex-wrap: wrap;
+      }
+
+      .add-row .btn {
+        width: 100%;
+        padding: 12px;
+      }
+
+      .btn {
+        padding: 10px 16px;
+      }
     }
   </style>
 
   <div id="app">
     <div class="app-header">
       <div class="app-title">Dream11 Tracker</div>
-      <div class="app-subtitle">IPL 2025 · Fantasy Leaderboard</div>
+      <div class="app-subtitle">IPL 2026 · Fantasy Leaderboard</div>
     </div>
     <nav class="tabs">
       <button class="tab on" data-v="leaderboard">Leaderboard</button>
@@ -762,12 +832,12 @@
         ]);
 
         if (pRes.data) S.players = pRes.data.map(p => p.name);
-        
+
         if (mRes.data && mRes.data.length) {
           const extras = mRes.data.map(m => ({ id: m.id, t: m.teams, d: m.match_date, v: m.venue }));
           S.matches = [...BASE_MATCHES, ...extras];
         }
-        
+
         if (eRes.data) {
           S.entries = {};
           eRes.data.forEach(e => {
