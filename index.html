@@ -215,12 +215,19 @@
       border-radius: var(--border-radius-full);
     }
 
+    .table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 0 -0.5rem;
+      padding: 0 0.5rem;
+    }
+
     table {
       width: 100%;
+      min-width: max-content;
       border-collapse: separate;
       border-spacing: 0;
       font-size: 14px;
-      table-layout: fixed;
     }
 
     th {
@@ -232,14 +239,13 @@
       text-transform: uppercase;
       letter-spacing: 0.05em;
       border-bottom: 1px solid var(--color-border);
+      white-space: nowrap;
     }
 
     td {
       padding: 12px 8px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.03);
       color: var(--color-text-primary);
-      overflow: hidden;
-      text-overflow: ellipsis;
       white-space: nowrap;
     }
 
@@ -293,6 +299,8 @@
       font-size: 14px;
       text-align: right;
       font-weight: 600;
+      overflow: visible;
+      text-overflow: clip;
     }
 
     .match-row {
@@ -901,19 +909,22 @@
       const { byR, byP } = leaderboard();
       const tbl = (rows, isRank) => {
         if (!rows.length) return `<div style="font-size:13px;color:var(--color-text-secondary);padding:.5rem 0">Enter scores to see rankings</div>`;
-        return `<table><thead><tr>
+        return `<div class="table-wrap"><table><thead><tr>
       <th style="width:28px">#</th><th>Player</th>
-      <th style="text-align:right;width:56px">${isRank ? 'Rank' : 'Pts'}</th>
-      <th style="text-align:right;width:36px">M</th>
+      <th style="text-align:right;width:48px">${isRank ? 'Rank' : 'Pts'}</th>
+      ${isRank ? '<th style="text-align:right;width:32px">M</th>' : ''}
+      <th style="text-align:right;width:${isRank ? '68px' : '96px'}">${isRank ? 'Avg R' : 'Avg P'}</th>
     </tr></thead><tbody>`+ rows.map(([name, d], i) => {
           const pc = i === 0 ? ' p1' : i === 1 ? ' p2' : i === 2 ? ' p3' : '';
+          const avg = d.n > 0 ? (isRank ? d.rs / d.n : d.ps / d.n).toFixed(2) : '-';
           return `<tr>
         <td><div class="pos${pc}">${i + 1}</div></td>
-        <td class="pname">${escH(name)}</td>
+        <td class="pname" title="${escH(name)}">${escH(name)}</td>
         <td class="num">${isRank ? d.rs : d.ps}</td>
-        <td class="num" style="color:var(--color-text-secondary)">${d.n}</td>
+        ${isRank ? `<td class="num" style="color:var(--color-text-secondary)">${d.n}</td>` : ''}
+        <td class="num">${avg}</td>
       </tr>`;
-        }).join('') + '</tbody></table>';
+        }).join('') + '</tbody></table></div>';
       };
       el.innerHTML = `<div class="two-col">
     <div class="card">
