@@ -757,6 +757,284 @@
         padding: 10px 16px;
       }
     }
+
+    /* ===== CELEBRATION OVERLAY ===== */
+    .celebration-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .celebration-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .celebration-title {
+      font-family: var(--font-sans);
+      font-size: 42px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #FFD700, #FFA500, #FF6347);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: celebTitlePulse 2s ease-in-out infinite;
+      text-shadow: none;
+    }
+
+    @keyframes celebTitlePulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        filter: brightness(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+        filter: brightness(1.2);
+      }
+    }
+
+    .celebration-subtitle {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      color: var(--color-text-secondary);
+      text-align: center;
+      margin-bottom: 2.5rem;
+      animation: fadeSlideUp 0.8s ease 0.3s both;
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .podium-container {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 2rem;
+      padding: 0 1rem;
+    }
+
+    .podium-card {
+      width: 160px;
+      border-radius: 16px;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: podiumRise 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    .podium-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      padding: 2px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), transparent);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      -webkit-mask-composite: xor;
+    }
+
+    .podium-card.first {
+      background: linear-gradient(180deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 165, 0, 0.1) 100%);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      min-height: 260px;
+      animation-delay: 0.2s;
+    }
+
+    .podium-card.second {
+      background: linear-gradient(180deg, rgba(192, 192, 192, 0.2) 0%, rgba(169, 169, 169, 0.1) 100%);
+      border: 1px solid rgba(192, 192, 192, 0.3);
+      min-height: 220px;
+      animation-delay: 0.4s;
+    }
+
+    .podium-card.third {
+      background: linear-gradient(180deg, rgba(205, 127, 50, 0.2) 0%, rgba(139, 69, 19, 0.1) 100%);
+      border: 1px solid rgba(205, 127, 50, 0.3);
+      min-height: 190px;
+      animation-delay: 0.6s;
+    }
+
+    @keyframes podiumRise {
+      from {
+        opacity: 0;
+        transform: translateY(80px) scale(0.8);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .podium-rank {
+      font-size: 40px;
+      margin-bottom: 0.5rem;
+    }
+
+    .podium-name {
+      font-family: var(--font-sans);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: var(--color-text-primary);
+    }
+
+    .podium-points {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .podium-msg {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.4;
+      padding: 0.5rem;
+      border-radius: 8px;
+    }
+
+    .podium-card.first .podium-msg {
+      background: rgba(255, 215, 0, 0.15);
+      color: #FFD700;
+    }
+
+    .podium-card.second .podium-msg {
+      background: rgba(192, 192, 192, 0.15);
+      color: #C0C0C0;
+    }
+
+    .podium-card.third .podium-msg {
+      background: rgba(239, 68, 68, 0.15);
+      color: #EF4444;
+    }
+
+    .celebration-dismiss {
+      margin-top: 1rem;
+      padding: 12px 32px;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 600;
+      color: #111;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      border: none;
+      border-radius: var(--border-radius-full);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: fadeSlideUp 0.8s ease 1s both;
+      box-shadow: 0 4px 20px rgba(255, 165, 0, 0.3);
+    }
+
+    .celebration-dismiss:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 8px 30px rgba(255, 165, 0, 0.5);
+    }
+
+    /* Confetti canvas */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      pointer-events: none;
+    }
+
+    /* Celebration sparkle particles */
+    .sparkle {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10001;
+      animation: sparkleFloat 2s ease-out forwards;
+    }
+
+    @keyframes sparkleFloat {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(0) translateY(-80px);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .celebration-title {
+        font-size: 28px;
+      }
+
+      .celebration-subtitle {
+        font-size: 14px;
+        padding: 0 1rem;
+      }
+
+      .podium-container {
+        gap: 6px;
+      }
+
+      .podium-card {
+        width: 110px;
+        padding: 1rem 0.5rem;
+      }
+
+      .podium-card.first {
+        min-height: 220px;
+      }
+
+      .podium-card.second {
+        min-height: 180px;
+      }
+
+      .podium-card.third {
+        min-height: 160px;
+      }
+
+      .podium-name {
+        font-size: 14px;
+      }
+
+      .podium-rank {
+        font-size: 30px;
+      }
+
+      .podium-msg {
+        font-size: 11px;
+      }
+
+      .podium-points {
+        font-size: 12px;
+      }
+    }
   </style>
 
   <div id="app">
@@ -776,6 +1054,16 @@
     <div id="v-players" class="view"></div>
     <div id="v-entry" class="view"></div>
   </div>
+
+  <!-- Celebration Overlay -->
+  <div class="celebration-overlay" id="celebrationOverlay">
+    <div class="celebration-title" id="celebTitle">🏆 IPL 2026 FINAL STANDINGS 🏆</div>
+    <div class="celebration-subtitle" id="celebSubtitle">The season of elite gambling has concluded.</div>
+    <div class="podium-container" id="podiumContainer"></div>
+    <button class="celebration-dismiss" id="celebDismiss" onclick="dismissCelebration()">Yeah yeah, close this
+      👋</button>
+  </div>
+  <canvas id="confetti-canvas"></canvas>
 
   <script>
     const BASE_MATCHES = [
@@ -856,6 +1144,12 @@
         console.error("Error fetching from Supabase:", e);
       }
       render();
+
+      // Auto-show celebration if match 74 already has entries
+      const m74entries = matchEntries(74);
+      if (Object.keys(m74entries).length > 0) {
+        setTimeout(() => showCelebration(), 600);
+      }
     }
 
     function eKey(mid, player) { return mid + ':::' + player; }
@@ -1048,7 +1342,12 @@
       });
 
       // Optimistic update
+      const shouldCelebrate = (m.id === 74);
       goBack();
+
+      if (shouldCelebrate) {
+        setTimeout(() => showCelebration(), 400);
+      }
 
       if (supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
         let hasError = false;
@@ -1135,6 +1434,157 @@
     document.querySelectorAll('.tab').forEach(t => {
       t.addEventListener('click', () => { S.view = t.dataset.v; render(); });
     });
+
+    // ===== CELEBRATION SYSTEM =====
+    let confettiAnimId = null;
+
+    function showCelebration() {
+      // Use overall tournament leaderboard (cumulative rank table)
+      const { byR } = leaderboard();
+
+      if (byR.length < 3) {
+        // Not enough players to do the full celebration
+        return;
+      }
+
+      const medals = ['🥇', '🥈', '🥉'];
+      const classes = ['first', 'second', 'third'];
+      const messages = [
+        name => `Congrats to your "efforts" in gambling, ${name}. The gods blessed your taps. 🎰✨  Enjoy your treat`,
+        name => `Congrats to your "efforts" in gambling, ${name}. Runner-up royalty. Enjoy your treat`,
+        name => `L. You were close, ${name}. So close. Yet so, so far. Maybe next season? 💀😂`
+      ];
+
+      const podium = document.getElementById('podiumContainer');
+      // Display order: 2nd, 1st, 3rd (classic podium layout)
+      const displayOrder = [1, 0, 2];
+      podium.innerHTML = displayOrder.map(idx => {
+        const [name, d] = byR[idx];
+        const avgRank = d.n > 0 ? (d.rs / d.n).toFixed(2) : '?';
+        return `<div class="podium-card ${classes[idx]}">
+          <div class="podium-rank">${medals[idx]}</div>
+          <div class="podium-name">${escH(name)}</div>
+          <div class="podium-points">${d.n} matches · Avg Rank ${avgRank}</div>
+          <div class="podium-msg">${messages[idx](escH(name))}</div>
+        </div>`;
+      }).join('');
+
+      // Show overlay
+      const overlay = document.getElementById('celebrationOverlay');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      // Start confetti
+      startConfetti();
+
+      // Sparkle burst
+      spawnSparkles();
+    }
+
+    function dismissCelebration() {
+      const overlay = document.getElementById('celebrationOverlay');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+      stopConfetti();
+      // Remove sparkles
+      document.querySelectorAll('.sparkle').forEach(s => s.remove());
+    }
+
+    function startConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const colors = ['#FFD700', '#FF6347', '#00CED1', '#FF69B4', '#7B68EE', '#FFA500', '#00FF7F', '#FF4500', '#1E90FF', '#ADFF2F'];
+      const pieces = [];
+
+      for (let i = 0; i < 200; i++) {
+        pieces.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          w: Math.random() * 10 + 5,
+          h: Math.random() * 6 + 3,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: (Math.random() - 0.5) * 3,
+          vy: Math.random() * 3 + 2,
+          rot: Math.random() * 360,
+          rotSpeed: (Math.random() - 0.5) * 10,
+          opacity: 1
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let alive = false;
+
+        for (const p of pieces) {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rot += p.rotSpeed;
+          p.vy += 0.03; // gravity
+          p.vx *= 0.999;
+
+          if (p.y > canvas.height + 50) {
+            // Reset to top for continuous effect
+            p.y = -20;
+            p.x = Math.random() * canvas.width;
+            p.vy = Math.random() * 3 + 2;
+          }
+
+          alive = true;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rot * Math.PI) / 180);
+          ctx.globalAlpha = p.opacity;
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          ctx.restore();
+        }
+
+        if (alive && document.getElementById('celebrationOverlay').classList.contains('active')) {
+          confettiAnimId = requestAnimationFrame(draw);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+
+      draw();
+
+      // Handle resize
+      window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+    }
+
+    function stopConfetti() {
+      if (confettiAnimId) {
+        cancelAnimationFrame(confettiAnimId);
+        confettiAnimId = null;
+      }
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function spawnSparkles() {
+      const sparkColors = ['#FFD700', '#FF6347', '#00CED1', '#FF69B4', '#7B68EE'];
+      for (let i = 0; i < 30; i++) {
+        setTimeout(() => {
+          const el = document.createElement('div');
+          el.className = 'sparkle';
+          el.style.left = Math.random() * window.innerWidth + 'px';
+          el.style.top = Math.random() * window.innerHeight + 'px';
+          el.style.background = sparkColors[Math.floor(Math.random() * sparkColors.length)];
+          el.style.width = (Math.random() * 6 + 3) + 'px';
+          el.style.height = el.style.width;
+          el.style.animationDuration = (Math.random() * 2 + 1) + 's';
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 3000);
+        }, Math.random() * 1500);
+      }
+    }
 
     init();
   </script>
